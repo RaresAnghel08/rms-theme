@@ -1,0 +1,12 @@
+@import 'variables';
+
+footer {
+	text-align: center;
+	color: map-get($primary, 200);
+	font-weight: bold;
+	font-size: .75rem;
+
+    a {
+        color: inherit;
+    }
+}

@@ -1,0 +1,51 @@
+{{- $file := .Get "file" -}}
+{{- if $file -}}
+  {{- $csv := readFile $file -}}
+  {{- if $csv -}}
+    {{- $lines := split $csv "\n" -}}
+    {{- $last_team := "" -}}
+    {{- $printed_leaders := false -}}
+    {{- $first := true -}}
+    {{- range $lines -}}
+      {{- $line := . -}}
+      {{- if $line -}}
+        {{- $r := split $line "," -}}
+        {{- $team := index $r 2 -}}
+        {{- $country := lower (index $r 3) -}}
+        {{- $first_name := index $r 0 -}}
+        {{- $last_name := index $r 1 -}}
+        {{- $role := index $r 4 -}}
+
+        {{- if ne $team $last_team -}}
+          {{- $last_team = $team -}}
+          {{- $printed_leaders = false -}}
+
+          {{- if not $first -}}
+            </ul>
+          {{- end -}}
+
+          {{- $first = false -}}
+          {{- partial "section.html" (dict "flag" $country "title" $team) -}}
+
+          <h4>Leaders:</h4>
+          <ul>
+        {{- end -}}
+
+        {{- if and (or (eq "" $role) (eq "Contestant" $role)) (not $printed_leaders) -}}
+          {{- $printed_leaders = true -}}
+
+          </ul>
+          <h4>Students:</h4>
+          <ul>
+        {{- end -}}
+        
+        <li>{{ $first_name }} {{ $last_name }}</li>
+      {{- end -}}
+    {{- end -}}
+    </ul>
+  {{- else -}}
+    <p>CSV file not found: {{ $file }}</p>
+  {{- end -}}
+{{- else -}}
+  <p>No file specified</p>
+{{- end -}}

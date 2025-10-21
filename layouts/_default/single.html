@@ -1,0 +1,16 @@
+{{ define "main" }}
+<main>
+	<article>
+		{{ $date := "" }}
+		{{ if .Date }}{{ $date = safeHTML (print "<p><time>" (.Date.Format "02.01.2006 15:04") "</time></p>") }}{{ end }}
+
+		{{ if not .Params.no_header }}
+		<div class="header">
+			<h2>{{ .Title }}</h2>
+		</div>
+		{{ end }}
+		
+		{{ .Content }}
+	</article>
+</main>
+{{ end }}

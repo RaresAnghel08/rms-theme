@@ -1,0 +1,102 @@
+@import 'variables';
+
+section {
+    p {
+        padding: 0 1rem;
+
+        a {
+            text-decoration: none;
+            color: map-get($primary, 700);
+        
+            padding: 0 .25rem;
+            margin: 0 -.25rem;
+        
+            background: linear-gradient(0deg, map-get($primary, T200), map-get($primary, T200)) no-repeat left bottom / calc(100% - .5rem) .5rem;
+            transition: background-size 125ms;
+        
+            z-index: 1;
+
+            &:hover {
+                background-size: 100% 100%;
+                background-position-x: left;
+            }
+
+            img {
+                display: block;
+                max-width: 480px !important;
+                width: 100%;
+                margin: 4rem auto;
+            }
+        }
+    }
+}
+
+.big {
+    display: block;
+    text-align: center;
+
+    a {
+        font-size: 1.5rem;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    a {
+        text-decoration: none;
+        color: unset;
+    }
+}
+
+h2 {
+    display: inline-block;
+
+    padding: 0 .25rem;
+    margin: 0 -.25rem;
+    margin-top: 2rem;
+
+    font-size: 2rem;
+
+    background: linear-gradient(0deg, map-get($primary, T200), map-get($primary, T200)) no-repeat left bottom / calc(100% - .5rem) 1rem;
+    transition: background-size 125ms;
+
+    color: map-get($primary, D400);
+}
+
+h3 {
+    margin: 0;
+    margin-top: 2rem;
+
+    font-size: 1.5rem;
+}
+
+h4 {
+    margin: 0;
+    margin-top: 2rem;
+    
+    font-size: 1.25rem;
+}
+
+.heading {
+    h2, h3 {
+        display: inline-block;
+    }
+
+    img {
+        vertical-align: text-bottom;
+        margin-right: 1rem;
+        height: 2rem;
+        box-shadow: -.5rem .5rem 0 0 #4b70be18, 0px 0px 32px 0px #0003;
+    }
+
+    .action {
+        color: #666;
+        font-weight: bold;
+        font-size: .75rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 1px;
+        padding: .5rem;
+    
+        vertical-align: text-bottom;
+    }
+}

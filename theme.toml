@@ -1,0 +1,12 @@
+name = "RMS"
+license = "MIT"
+licenselink = "https://github.com/CNITV/rms-theme/blob/master/LICENSE"
+description = "RMS theme. Based on vimux/blank"
+homepage = "https://github.com/CNITV/rms-theme"
+tags = []
+features = []
+min_version = "0.20"
+
+[author]
+  name = "CNITV"
+  homepage = "http://lbi.ro/"

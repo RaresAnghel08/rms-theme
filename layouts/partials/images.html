@@ -1,0 +1,55 @@
+{{/*  Loads all images from specified .path glob and creates <img> elements with specified .class  */}}
+
+{{ $imgGlob := .path }}
+{{ $class := .class }}
+{{ $type := .type }}
+{{ $size := .size }}
+
+{{ range resources.Match $imgGlob }}
+{{ if eq .ResourceType "image" }}
+    {{ $imgMeta := split (strings.TrimSuffix (path.Ext .Name) .Name) "_" }}
+    {{ $ext := path.Ext .Name }}
+
+    {{ if or (eq $ext ".jpg") (eq $ext ".png") }}
+
+    {{ $webp := .Resize (print $size " webp " $type) }}
+
+    {{ if (index $imgMeta 2) }}
+    <a href="{{ print "https://" (index $imgMeta 2) }}">
+    {{ end }}
+
+    <picture class="{{ print $class "-container" }}">
+        <source type="image/webp" srcset="{{ $webp.RelPermalink }}" />
+        <img class="{{ $class }}"
+             src="{{ .RelPermalink }}"
+             alt="{{ index $imgMeta 1 }}"
+             data-test="{{ .Params.test }}"
+             width="{{ .Width }}" height="{{ .Height }}" />
+    </picture>
+
+    {{ if (index $imgMeta 2) }}
+    </a>
+    {{ end }}
+
+    {{ else }}
+
+    {{ $dim := split (index $imgMeta 2) "x" }}
+
+    {{ if (index $imgMeta 3) }}
+    <a href="{{ print "https://" (index $imgMeta 3) }}">
+    {{ end }}
+
+    <img class="{{ print $class "-container" }} {{ $class }}"
+         src="{{ .RelPermalink }}"
+         alt="{{ index $imgMeta 1 }}"
+         width="{{ index $dim 0 }}"
+         height="{{ index $dim 1 }}"/>
+
+    {{ end }}
+
+    {{ if (index $imgMeta 3) }}
+    </a>
+    {{ end }}
+    
+{{ end }}
+{{ end }}

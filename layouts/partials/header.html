@@ -1,0 +1,29 @@
+<header>
+	<a class="link-home" href="{{ .Site.BaseURL }}"><img class="logo" src="{{ .Site.Params.logo | relURL }}" alt="{{ .Site.Title }} logo"></a>
+	<div class="info">
+		<span>{{ .Site.Params.heading }}</span>
+		{{ if .Site.Params.finished }}
+		<a href="{{ "/contest/results" | relURL }}">View results&nbsp;&nbsp;→</a>
+		{{ else }}
+		<a href="{{ "/organisation/schedule" | relURL }}">View schedule&nbsp;&nbsp;→</a>
+		{{ end }}
+	</div>
+	<div class="bar">
+		<span>ORGANISED BY</span>
+		<div class="sponsorList no-scrollbar" id="sponsorList">
+			{{ partial "images.html" (dict "class" "sponsor" "path" "/organisers/*" "type" "icon" "size" "x160" ) }}
+		</div>
+
+		<script>
+			const list = document.getElementById("sponsorList");
+			const logos = list.getElementsByClassName("sponsor");
+			let idx = 0;
+
+			setInterval(function() {
+				idx = (idx + 1) % logos.length;
+				const scroll = logos[idx].offsetLeft + logos[idx].clientWidth/2;
+				list.scrollTo({ left: scroll - list.clientWidth/2, behavior: 'smooth' });
+			}, 2000);
+		</script>
+	</div>
+</header>

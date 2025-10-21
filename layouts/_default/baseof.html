@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="theme-color" content="{{ .Site.Params.baseColor }}">
+	
+	<title>{{ .Title }} | {{ .Site.Title }}</title>
+	{{ with .Site.Params.description }}
+	<meta name="description" content="{{ . }}">{{ end }}
+	{{ with .Site.Params.author }}
+	<meta name="author" content="{{ . }}">{{ end }}
+
+	<link rel="canonical" href="{{ .Permalink }}" />
+
+	{{ $css_options := dict "targetPath" "css/style.css" "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction) }}
+	{{ $style := resources.Get "scss/style.scss" | resources.ExecuteAsTemplate "style.scss" . | toCSS $css_options | fingerprint }}
+	<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+
+	{{ block "header_css" . }}{{ end }}
+
+	{{ block "favicon" . }}
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ "/apple-touch-icon.png" | relURL }}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ "/favicon-32x32.png" | relURL }}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ "/favicon-16x16.png" | relURL }}">
+	<link rel="manifest" href="{{ "/site.webmanifest" | relURL }}">
+	<link rel="mask-icon" href="{{ "/safari-pinned-tab.svg" | relURL }}" color="{{ .Site.Params.baseColor }}">
+	<meta name="msapplication-TileColor" content="{{ .Site.Params.baseColor }}">
+	{{ end }}
+
+	{{ block "fonts" . }}
+	{{ partial "fonts.html" . }}
+	{{ end }}
+
+	{{ block "head" . }}
+	{{ end }}
+
+	{{ if .Site.Params.useSlider }}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.min.css">
+	{{ end }}
+
+	{{ with .OutputFormats.Get "RSS" -}}
+	{{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
+	{{- end }}
+</head>
+
+<body>
+	{{ if .Site.Params.useSlider }}
+	<script src="https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.js"></script>
+	{{ end }}
+
+	{{ partial "header.html" . }}
+
+	<div class="layout">
+		<section class="col main">
+			{{ block "main" . }}{{ end }}
+		</section>
+		<aside class="col sidebar">
+			{{ partial "sidebar.html" . }}
+		</aside>
+	</div>
+
+	{{ partial "footer.html" . }}
+</body>
+
+</html>

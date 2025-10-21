@@ -1,0 +1,15 @@
+<div class="heading">
+	{{ with .flag }}
+		{{ if eq . "vianu" }}
+			<img src="{{ printf "/assets/flags/%s.png" . | relURL }}" />
+		{{ else }}
+			<img src="{{ printf "/assets/flags/%s.svg" . | relURL }}" />
+		{{ end }}
+	{{ end }}
+
+	<h3>{{ .title }}</h3>
+	
+	{{ with .link }}
+	<a class="action" href="{{ . }}">DOWNLOAD</a>
+	{{ end }}
+</div>

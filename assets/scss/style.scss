@@ -1,0 +1,50 @@
+@import 'normalize';
+
+@import 'palette';
+
+$primary-base: {{ .Site.Params.BaseColor }};
+$font-family: {{ .Site.Params.FontFamily }};
+
+{{ if .Site.Params.OldHeader }}
+	$old-header: true;
+{{ else }}
+	$old-header: false;
+{{ end }}
+
+@import 'variables';
+
+// #002b7f
+// #4b70be
+
+@import 'header';
+@import 'layout';
+@import 'nav';
+@import 'article';
+@import 'table';
+@import 'footer';
+@import 'list';
+@import 'autoscroll';
+
+body {
+	font-family: $font-family;
+	line-height: 2rem;
+	letter-spacing: -0.5pt;
+	overflow-x: hidden;
+}
+
+.previous {
+	margin: 2rem;
+}
+
+.overflow-x {
+	overflow-x: auto;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

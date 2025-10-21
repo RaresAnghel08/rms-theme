@@ -1,0 +1,6 @@
+$primary-base: #0055aa !default;
+$primary: makeColorPalette($primary-base);
+
+$old-header: false !default;
+
+@debug $primary;

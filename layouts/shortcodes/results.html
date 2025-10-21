@@ -1,0 +1,80 @@
+{{- $file := .Get "file" -}}
+{{- $header := .Get "header" -}}
+{{- if $file -}}
+  {{- $csv := readFile $file -}}
+  {{- if $csv -}}
+    {{- $lines := split $csv "\n" -}}
+    <div class="large-table">
+        <table class="freeze-head freeze-right">
+            {{- range $i, $line := $lines -}}
+              {{- if $line -}}
+                {{- $r := split $line "," -}}
+                {{- $first_name := index $r 0 -}}
+                {{- $last_name := index $r 1 -}}
+                {{- $team := index $r 2 -}}
+                
+                {{- $d1p1 := index $r 3 -}}
+                {{- $d1p2 := index $r 4 -}}
+                {{- $d1p3 := index $r 5 -}}
+                {{- $d1total := index $r 6 -}}
+                
+                {{- $d2p1 := index $r 7 -}}
+                {{- $d2p2 := index $r 8 -}}
+                {{- $d2p3 := index $r 9 -}}
+                {{- $d2total := index $r 10 -}}
+                
+                {{- $total := index $r 11 -}}
+
+                {{- $role := index $r 12 -}}
+
+                {{- if and $header (eq $i 0) -}}
+                    <thead>
+                        <tr>
+                            <th>{{ $first_name }} {{ $last_name }}</th>
+                            <th>{{ $team }}</th>
+
+                            <th>{{ $d1p1 }}</th>
+                            <th>{{ $d1p2 }}</th>
+                            <th>{{ $d1p3 }}</th>
+                            <th class="bold">{{ $d1total }}</th>
+                            
+                            <th>{{ $d2p1 }}</th>
+                            <th>{{ $d2p2 }}</th>
+                            <th>{{ $d2p3 }}</th>
+                            <th class="bold">{{ $d2total }}</th>
+
+                            <th class="bold">{{ $total }}</th>
+                        </tr>
+                    </thead>
+                {{- else -}}
+                    {{- if or (and $header (eq $i 1)) (eq $i 0) -}}
+                        <tbody>
+                    {{- end -}}
+                    <tr class="{{ $role }}">
+                        <th>{{ $first_name }} {{ $last_name }}</th>
+                        <td>{{ $team }}</td>
+
+                        <td class="right">{{ $d1p1 }}</td>
+                        <td class="right">{{ $d1p2 }}</td>
+                        <td class="right">{{ $d1p3 }}</td>
+                        <td class="right bold">{{ $d1total }}</td>
+                        
+                        <td class="right">{{ $d2p1 }}</td>
+                        <td class="right">{{ $d2p2 }}</td>
+                        <td class="right">{{ $d2p3 }}</td>
+                        <td class="right bold">{{ $d2total }}</td>
+
+                        <td class="right bold">{{ $total }}</td>
+                    </tr>
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+            </tbody>
+        </table>
+    </div>
+  {{- else -}}
+    <p>CSV file not found: {{ $file }}</p>
+  {{- end -}}
+{{- else -}}
+  <p>No file specified</p>
+{{- end -}}

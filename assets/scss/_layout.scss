@@ -1,0 +1,46 @@
+.layout {
+    display: flex;
+    max-width: 960px;
+    margin: auto auto 1rem;
+}
+
+@media screen and (max-width: 960px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: 2 !important;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .floating {
+        position: sticky;
+        top: 2rem;
+    }
+}
+
+.sidebar {
+    order: 0;
+    min-width: 12rem;
+}
+
+.main {
+    flex: 1 0;
+    text-align: justify;
+    text-justify: inter-word;
+    order: 1;
+    overflow-x: hidden;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.col {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding: 1rem;
+}

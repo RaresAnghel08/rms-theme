@@ -1,0 +1,36 @@
+{{- $file := .Get "file" -}}
+{{- if $file -}}
+  {{- $csv := readFile $file -}}
+  {{- if $csv -}}
+    {{- $lines := split $csv "\n" -}}
+    <div class="overflow-x">
+    	<table>
+    		<thead>
+    			<tr>
+    				<th>First name</th>
+    				<th>Last name</th>
+    				<th></th>
+    				<th></th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			{{- range $i, $line := $lines -}}
+    			  {{- if $line -}}
+    			    {{- $r := split $line "," -}}
+    			    <tr>
+    			    	<td>{{ index $r 0 }}</td>
+    			    	<td>{{ index $r 1 }}</td>
+    			    	<td>{{ index $r 2 }}</td>
+    			    	<td>{{ index $r 3 }}</td>
+    			    </tr>
+    			  {{- end -}}
+    			{{- end -}}
+    		</tbody>
+    	</table>
+    </div>
+  {{- else -}}
+    <p>CSV file not found: {{ $file }}</p>
+  {{- end -}}
+{{- else -}}
+  <p>No file specified</p>
+{{- end -}}

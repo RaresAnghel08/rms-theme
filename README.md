@@ -5,7 +5,7 @@
 In your Hugo site `themes` directory, run:
 
 ```
-git clone https://github.com/CNITV/rms-theme
+git clone https://github.com/RaresAnghel08/rms-theme
 ```
 
 Next, open `config.toml` in the base of the Hugo site and ensure the theme option is set to `blank`.
